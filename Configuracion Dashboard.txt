@@ -1,0 +1,12 @@
+1. Total Tareas Procesadas
+stat
+query: tareas_procesadas_total{}
+
+2. Consultas al endpoint /stats
+time series
+query: http_server_requests_seconds_count{uri="/stats"}
+
+
+3. Velocidad de Procesamiento
+stat
+query: rate(http_server_requests_seconds_count{uri="/stats"}[$__rate_interval])
