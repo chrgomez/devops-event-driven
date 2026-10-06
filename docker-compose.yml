@@ -36,9 +36,7 @@ services:
       - devops-net
 
   task-service:
-    build:
-      context: .
-      dockerfile: ./task-service/Dockerfile
+    image: chrgomez/task-service:latest
     container_name: task-service
     ports:
       - "8081:8081"
@@ -50,12 +48,10 @@ services:
       - devops-net
 
   notification-service:
-    build:
-      context: .
-      dockerfile: ./notification-service/Dockerfile
+    image: chrgomez/notification-service:latest
+    container_name: notification-service
     ports:
       - "8083:8083"
-    container_name: notification-service
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
@@ -64,12 +60,10 @@ services:
       - devops-net
 
   analytics-service:
-    build:
-      context: .
-      dockerfile: ./analytics-service/Dockerfile
+    image: chrgomez/analytics-service:latest
+    container_name: analytics-service
     ports:
       - "8082:8082"
-    container_name: analytics-service
     environment:
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
@@ -78,7 +72,7 @@ services:
       - devops-net
 
   frontend:
-    build: ./frontend
+    image: chrgomez/frontend-app:latest
     container_name: frontend
     ports:
       - "80:80"
@@ -89,6 +83,7 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
+    container_name: prometheus_nuevo
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
